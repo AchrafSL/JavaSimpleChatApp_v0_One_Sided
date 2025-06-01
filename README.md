@@ -49,21 +49,19 @@ Use `.flush()` when:
 
 
 ## Here is an image for clarification:
-The content of the buffer, when full, get flushed to the InputStreamReader which then get flushed to the underlying InputStream
-![img.png](img.png)
+The content of the buffer, when full, gets flushed to the `InputStreamReader`, which then gets flushed to the underlying `InputStream`.
 
 ---
 
 ## Scanner:
-Scanner to take input from console. 
-System.in is an InputStream that is connected to keyboard input
+The `Scanner` class is used to take input from the console. 
+`System.in` is an `InputStream` that is connected to keyboard input.
 
 ## Note:
-BufferWriter.newLine() 
-adds \n because nextLine doesn't return a line separator
+`BufferedWriter.newLine()` 
+adds `\n` because `nextLine()` doesn't return a line separator.
 
-accept() method of the serverSocket class waits for a client connection , one connected a socket object is returned that can be used to communicate with the client
-Dealing with multiple users, you will need a specific socket for every connection
-that's what accept returns 
+The `accept()` method of the `ServerSocket` class waits for a client connection. Once connected, a `Socket` object is returned that can be used to communicate with the client.
+When dealing with multiple users, you will need a specific socket for every connection; that's what `accept()` returns.
 
-so the server socket it's just for listnening for connections
+So, the server socket is just for listening for connections.

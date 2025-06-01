@@ -6,10 +6,12 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+// This class represents the client-side application for the chat system.
+// It uses a GUI to send and receive messages from the server.
 public class Client extends JFrame {
+    // GUI components
     JPanel panel;
     JPanel footerPanel;
-
 
     JButton id1Btn1;
     JTextField txtF1;
@@ -19,7 +21,7 @@ public class Client extends JFrame {
 
     public final String placeHolder1 = "Write Your message Here";
 
-
+    // Network components
     Socket s = null;
     InputStreamReader in = null;
     OutputStreamWriter out = null;
@@ -27,9 +29,9 @@ public class Client extends JFrame {
     BufferedReader br = null;
     BufferedWriter bw = null;
 
-
+    // Constructor to set up the GUI and network connection
     Client() {
-
+        // Initialize GUI components
         panel = new JPanel();
         footerPanel = new JPanel();
         id1Btn1 = new JButton("SendMsg ");
@@ -44,18 +46,7 @@ public class Client extends JFrame {
         msgArea.setLineWrap(true);  // wrap long lines
         msgArea.setWrapStyleWord(true);
 
-
-
-
-
-
-
-        // In this BorderLayout we have only 4 place to place our components,
-        // we can't place the button and the txtField in the footer
-        // The solution is create another panel, txtF to W, Button to E
-
-
-
+        // Layout setup
         panel.setLayout(new BorderLayout());
         footerPanel.setLayout(new BorderLayout());
 
@@ -68,7 +59,7 @@ public class Client extends JFrame {
         footerPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEmptyBorder(10, 10, 10, 10), "Chat Input"));
 
-
+        // Action listener for the send button
         id1Btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,16 +67,14 @@ public class Client extends JFrame {
                 if (!message.isEmpty() && !message.equals(placeHolder1)) {
 
                     try {
-                        // send the msg:
+                        // Send the message to the server
                         bw.write(message);
                         bw.newLine();
                         bw.flush();  // send the msg when the EnterKey is pressed not when the buffer is full
 
-
-                        // Show what u have said:
+                        // Show what you have said
                         System.out.println("You: " + message);
                         addMsg("You: "+message);
-
 
                         if(message.equalsIgnoreCase("BYE"))
                         {
@@ -94,12 +83,10 @@ public class Client extends JFrame {
 
                         }
 
-                        //Clear input:
+                        // Clear input
                         txtF1.setText(placeHolder1);
 
-
-
-                        // Wait for response
+                        // Wait for response from the server
                         String response = br.readLine();
                         if (response != null) {
                             addMsg("Server: " + response);
@@ -114,26 +101,20 @@ public class Client extends JFrame {
                             addMsg("Server: [no response]");
                         }
 
-
                     } catch (IOException ex) {
                         addMsg("System: Error sending Message");
                         ex.printStackTrace();
 
                     }
 
-
-
-
-
                 }
             }
         });
 
-
         // Enter key to send message
         txtF1.addActionListener(e -> id1Btn1.doClick());
 
-        // Memic PlaceHolder behaviour:
+        // Mimic placeholder behavior
         txtF1.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -152,9 +133,7 @@ public class Client extends JFrame {
             }
         });
 
-
-        //Connect To the Server:
-
+        // Connect to the server
         try {
             s = new Socket("localhost",1234);
             in = new InputStreamReader(s.getInputStream());
@@ -163,17 +142,12 @@ public class Client extends JFrame {
             br = new BufferedReader(in);
             bw = new BufferedWriter(out);
 
-
         } catch (IOException e) {
             e.printStackTrace();
 
         }
 
-
-
-
-
-
+        // Finalize GUI setup
         this.setContentPane(panel);
         this.setTitle("Natsapp");
         this.setSize(400,500);
@@ -182,8 +156,7 @@ public class Client extends JFrame {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // To end the program entirely not just hide It
 
-
-
+        // Handle window closing event
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -202,22 +175,18 @@ public class Client extends JFrame {
             }
         });
 
-
     }
 
-
+    // Method to add messages to the message area
     public void addMsg(String message)
     {
         msgArea.append(message+'\n');
     }
 
+    // Main method to start the client application
     public static void main(String[] args) {
 
         Client c = new Client();
-
-
-
-
 
     }
 }
