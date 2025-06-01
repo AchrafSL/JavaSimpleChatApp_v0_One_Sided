@@ -1,4 +1,13 @@
-# Java Streams Guide
+# Simple Java Chat Application
+
+This project is a basic chat application implemented in Java. It consists of a client and server that communicate over a network. The client provides a graphical user interface (GUI) for users to send and receive messages, while the server handles multiple client connections and message routing.
+
+## Features
+- Text-based messaging between clients
+- Simple GUI for client-side interaction
+- Server-side handling of multiple client connections
+
+---
 
 ## 🔹 What is a Stream?
 A **stream** is a sequence of data used for reading from or writing to data sources (files, memory, network).
@@ -47,9 +56,10 @@ Use `.flush()` when:
 - Before closing the stream
 - In real-time communication
 
-
 ## Here is an image for clarification:
 The content of the buffer, when full, gets flushed to the `InputStreamReader`, which then gets flushed to the underlying `InputStream`.
+
+![img.png](img.png)
 
 ---
 
